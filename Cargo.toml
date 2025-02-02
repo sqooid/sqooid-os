@@ -1,0 +1,9 @@
+[workspace]
+members = ["uefi"]
+
+[dependencies]
+sqooid-uefi = { path = "./uefi" }
+
+[workspace.dependencies]
+log = "0.4.25"
+uefi = "0.33.0"
