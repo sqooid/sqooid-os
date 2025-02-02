@@ -1,9 +1,8 @@
 [workspace]
-members = ["uefi"]
-
-[dependencies]
-sqooid-uefi = { path = "./uefi" }
+members = ["kernel", "uefi"]
+resolver = "2"
 
 [workspace.dependencies]
 log = "0.4.25"
 uefi = "0.33.0"
+thiserror = "2.0.11"

@@ -5,4 +5,10 @@ edition = "2021"
 
 [dependencies]
 log = { workspace = true }
-uefi = { workspace = true, features = ["panic_handler", "logger"] }
+uefi = { workspace = true, features = [
+  "panic_handler",
+  "logger",
+  "alloc",
+  "global_allocator",
+] }
+thiserror = { workspace = true }
