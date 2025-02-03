@@ -10,6 +10,6 @@ fn panic(_info: &PanicInfo) -> ! {
 }
 
 #[no_mangle]
-fn main() {
+pub extern "sysv64" fn main() -> ! {
     loop {}
 }

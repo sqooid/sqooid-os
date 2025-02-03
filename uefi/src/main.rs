@@ -5,8 +5,6 @@ pub mod elf;
 pub mod error;
 pub mod file;
 
-use core::ffi::c_void;
-
 use elf::Elf;
 use file::open_kernel_elf;
 use log::info;
@@ -21,14 +19,15 @@ fn main() -> Status {
 
     info!("Loading kernel");
     let elf = Elf::from_bytes(&kernel_bytes).expect("Failed to parse ELF file");
-    elf.load().expect("Failed to load ELF file");
+    let kernel_loaded_addr = elf.load().expect("Failed to load ELF file");
 
     info!("Exiting bootloader");
-    unsafe {
-        let _ = uefi::boot::exit_boot_services(MemoryType::LOADER_DATA);
-    }
-    let handle = unsafe { Handle::from_ptr(elf.entry_addr as *mut c_void).unwrap() };
-    boot::start_image(handle).unwrap();
+    info!("Entry address: 0x{:x}", elf.entry_addr);
+    let _ = unsafe { uefi::boot::exit_boot_services(MemoryType::LOADER_DATA) };
+
+    let kernel_main: extern "sysv64" fn() -> ! =
+        unsafe { core::mem::transmute(elf.entry_addr + kernel_loaded_addr as usize) };
+    kernel_main();
 
     Status::SUCCESS
 }

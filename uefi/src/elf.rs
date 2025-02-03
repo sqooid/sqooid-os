@@ -85,7 +85,7 @@ impl<'a> Elf<'a> {
         })
     }
 
-    pub fn load(&self) -> Result<(), ElfLoadError> {
+    pub fn load(&self) -> Result<*const u8, ElfLoadError> {
         let fixed_size = self
             .program_headers
             .iter()
@@ -118,6 +118,6 @@ impl<'a> Elf<'a> {
             }
         }
 
-        Ok(())
+        Ok(kernel_mem.as_ptr().cast::<u8>())
     }
 }
