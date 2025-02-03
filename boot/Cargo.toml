@@ -1,5 +1,5 @@
 [package]
-name = "sqooid-uefi"
+name = "boot"
 version = "0.1.0"
 edition = "2021"
 
@@ -11,4 +11,5 @@ uefi = { workspace = true, features = [
   "alloc",
   "global_allocator",
 ] }
-thiserror = { workspace = true }
+utils = { path = "../utils" }
+bootlib = { path = "../bootlib" }

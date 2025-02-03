@@ -1,7 +1,11 @@
 #![no_std]
 #![no_main]
 
+pub mod memory;
+
 use core::panic::PanicInfo;
+
+use bootlib::shared::BootInfo;
 
 #[cfg(not(test))]
 #[panic_handler]
@@ -10,6 +14,6 @@ fn panic(_info: &PanicInfo) -> ! {
 }
 
 #[no_mangle]
-pub extern "sysv64" fn main() -> ! {
+pub extern "sysv64" fn main(boot_info: &BootInfo) -> ! {
     loop {}
 }

@@ -1,7 +1,7 @@
 set -e
 
 (
-  cd uefi
+  cd boot
   cargo build
 )
 
@@ -14,7 +14,7 @@ if [ ! -d build ]; then
   mkdir -p build/esp/efi/boot
 fi
 
-cp target/x86_64-unknown-uefi/debug/sqooid-uefi.efi build/esp/efi/boot/bootx64.efi
+cp target/x86_64-unknown-uefi/debug/boot.efi build/esp/efi/boot/bootx64.efi
 cp target/x86_64-unknown-none/debug/kernel build/esp/kernel.elf
 ovmf_dir="/usr/share/OVMF"
 
